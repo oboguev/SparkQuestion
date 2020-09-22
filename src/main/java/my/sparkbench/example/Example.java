@@ -85,6 +85,8 @@ public class Example implements Serializable
 
     private void streamGroupByResult() throws Exception
     {
+        dataset.printSchema();
+
         Dataset<Row> ds1 = dataset
                                   .withWatermark("timestamp", "1 second")
                                   .groupBy(
@@ -103,7 +105,8 @@ public class Example implements Serializable
                                   .orderBy("window");
 
         StreamingQuery query = ds1.writeStream()
-                                  .outputMode("complete")
+                                  // .outputMode("complete")
+                                  .outputMode(OutputMode.Append())
                                   .format("console")
                                   .option("truncate", "false")
                                   .option("numRows", Integer.MAX_VALUE)
@@ -134,7 +137,8 @@ public class Example implements Serializable
         StreamingQuery query = ds1
                                   .writeStream()
                                   // .outputMode("append")
-                                  .outputMode("complete")
+                                  // .outputMode("complete")
+                                  .outputMode(OutputMode.Append())
                                   .option("numRows", Integer.MAX_VALUE)
                                   .foreach(
                                            new ForeachWriter<Row>()
