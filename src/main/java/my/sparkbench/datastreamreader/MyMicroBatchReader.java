@@ -107,12 +107,12 @@ public class MyMicroBatchReader implements MicroBatchReader
     private void createSchema()
     {
         this.schema = new StructType();
-        this.schema = this.schema.add(new StructField("source", DataTypes.StringType, true, Metadata.empty()));
-        this.schema = this.schema.add(new StructField("timestamp", DataTypes.TimestampType, true, Metadata.empty()));
+        this.schema = this.schema.add(new StructField("source", DataTypes.StringType, false, Metadata.empty()));
+        this.schema = this.schema.add(new StructField("timestamp", DataTypes.TimestampType, false, Metadata.empty()));
         for (int k = 0; k < EventGenerator.NPROPS_LONG; k++)
-            this.schema = this.schema.add(new StructField("I" + k, DataTypes.LongType, true, Metadata.empty()));
+            this.schema = this.schema.add(new StructField("I" + k, DataTypes.LongType, false, Metadata.empty()));
         for (int k = 0; k < EventGenerator.NPROPS_DOUBLE; k++)
-            this.schema = this.schema.add(new StructField("D" + k, DataTypes.DoubleType, true, Metadata.empty()));
+            this.schema = this.schema.add(new StructField("D" + k, DataTypes.DoubleType, false, Metadata.empty()));
     }
 
     private Object[] makeRow(int offset)
